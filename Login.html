@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header>
+        <section class="container">
+            <article class="logo">
+                <a href=""><img class="imglogo" src="/assets/img/Sin título.png" alt="logo"></a>
+            </article>
+            <article class="menu">
+                <img src="/assets/img/bar-de-hamburguesas.png"  id="btn-menu" style="width: 33px; height: 33px;">
+                <div id="backmenu"></div>
+                <nav id="menu">
+                    <ul>
+                       <li><a href="" id="select">Inicio</a></li>
+                       <li><a href="">Conocenos</a></li>
+                       <li><a href="">Donaciones</a></li>
+                       <li><a href="">Contactanos</a></li>
+                       <li>
+                        <form id="search-container" action="/search" method="GET" >
+                            <input id="placeh" type="text" name="query" placeholder="Search...">
+                            <button id="boton" type="submit">
+                                <img src="/assets/img/buscar.png" alt="Search" style="width: 20px; height: 20px;">
+                            </button>
+                        </form>
+                    </li>
+                    </ul>
+                </nav>
+            </article>
+        </section>
+    </header>
+    <main>
+        <div class="login-container">
+            <h2>Inicio de Sesión</h2>
+            <p style="font-size: 12px;">Estas a un punto de entrar en el  mundo de la gastronomia vamos!!! sigue adelante</p>
+            <form action="/login" method="POST">
+                <input type="text" id="username" name="username" required placeholder="Tu nombre">
+                <input type="password" id="password" name="password" required placeholder="Tu contraseña">
+                <button type="submit">Iniciar Sesión</button>
+                <a href="/">¿Olvidaste tu contraseña? <br> click aqui</a>
+            </form>
+        </div>        
+    </main>
+    <footer></footer>
+    <script src="/assets/js/app.js"></script>
+
+</body>
+</html>

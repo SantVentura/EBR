@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/register.css">
+</head>
+<body>
+    <header>
+        <section class="container">
+            <article class="logo">
+                <a href=""><img class="imglogo" src="/assets/img/Sin título.png" alt="logo"></a>
+            </article>
+            <article class="menu">
+                <img src="/assets/img/bar-de-hamburguesas.png"  id="btn-menu" style="width: 33px; height: 33px;">
+                <div id="backmenu"></div>
+                <nav id="menu">
+                    <ul>
+                       <li><a href="/Home.html" id="select">Inicio</a></li>
+                       <li><a href="">Conocenos</a></li>
+                       <li><a href="/Donaciones.html">Donaciones</a></li>
+                       <li><a href="">Contactanos</a></li>
+                       <li>
+                        <form id="search-container" action="/search" method="GET" >
+                            <input id="placeh" type="text" name="query" placeholder="Search...">
+                            <button id="boton" type="submit">
+                                <img src="/assets/img/buscar.png" alt="Search" style="width: 20px; height: 20px;">
+                            </button>
+                        </form>
+                    </li>
+                    </ul>
+                </nav>
+            </article>
+        </section>
+    </header>
+    <main>
+        <div class="register-container">
+            <h2>Registro</h2>
+            <p style="font-size: 12px;">¡Bienvenido! Estás a un paso de unirte al mundo de la gastronomía. Completa tu registro a continuación.</p>
+            <form action="/register" method="POST">
+                <input type="text" id="username" name="username" required placeholder="Tu nombre de usuario">
+                <input type="email" id="email" name="email" required placeholder="Tu correo Gmail">
+                <input type="password" id="password" name="password" required placeholder="Crea una contraseña">
+                <button type="submit">Registrarse</button>
+                <a href="Login.html">¿Ya tienes una cuenta? Inicia sesión aquí</a>
+            </form>
+        </div>
+                
+    </main>
+    <footer></footer>
+    <script src="/assets/js/app.js"></script>
+
+</body>
+</html>
