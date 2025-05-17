@@ -1,0 +1,32 @@
+-- Insertar roles
+INSERT INTO Roles (nombre_rol) VALUES
+('admin'),
+('usuario');
+
+-- Insertar usuarios
+INSERT INTO Usuarios (nombre_usuario, correo, contraseña) VALUES
+('adminGabriel', 'admin@blog.com', 'admin123'),
+('cocineroJuan', 'juan@blog.com', 'juanpass'),
+('chefMaria', 'maria@blog.com', 'mariapass');
+
+-- Asignar roles
+INSERT INTO AsignacionRoles (usuario_id, rol_id) VALUES
+(1, 1), -- adminGabriel -> admin
+(2, 2), -- cocineroJuan -> usuario
+(3, 2); -- chefMaria -> usuario
+
+-- Insertar categorías de recetas
+INSERT INTO CategoriasRecetas (nombre_categoria) VALUES
+('Postres'),
+('Comida Rápida'),
+('Vegana'),
+('Internacional'),
+('Bebidas');
+
+-- Insertar recetas
+INSERT INTO Recetas (titulo, descripcion, imagen, vista_previa, usuario_id, categoria_id) VALUES
+('Tarta de Chocolate', 'Deliciosa tarta con chocolate negro y base de galleta.', '/assets/img/tarta.jpg', 'Tarta con mucho chocolate', 2, 1),
+('Hamburguesa Vegana', 'Hamburguesa con lentejas y garbanzos.', '/assets/img/hamburguesa.jpg', 'Hamburguesa sin carne', 3, 3),
+('Arepas Rellenas', 'Arepas tradicionales colombianas con queso.', '/assets/img/arepas.jpg', 'Arepas con mucho queso', 2, 4),
+('Smoothie de Fresa', 'Bebida saludable y refrescante.', '/assets/img/smoothie.jpg', 'Refrescante y natural', 3, 5),
+('Pizza Casera', 'Masa artesanal con toppings al gusto.', '/assets/img/pizza.jpg', 'Pizza estilo italiano', 2, 2);

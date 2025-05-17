@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrador</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/Admin-dash.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido al Dashboard Administrador</h1>
+        <nav>
+            <ul>
+                <li><a href="admin-dashboard.html">Dashboard</a></li>
+                <li><a href="/admin-users.html">Gestionar Usuarios</a></li>
+                <li><a href="/logout.php">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Recetas Pendientes</h2>
+            <table id="recetas-table">
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                    <th>Acción</th>
+                </tr>
+                <!-- Las recetas se cargarán dinámicamente con JavaScript -->
+            </table>
+        </section>
+        <section>
+            <h2>Recetas aprobadas</h2>
+            <table id="recetas-aprobadas-table">
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                    <th>Acción</th>
+                </tr>
+                <!-- Las recetas se cargarán dinámicamente con JavaScript -->
+            </table>
+        </section>
+
+        <section>
+            <h2>Estadísticas</h2>
+            <div id="estadisticas-container">
+                <!-- Las estadísticas se cargarán dinámicamente con JavaScript -->
+            </div>
+            
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Blog de Recetas</p>
+    </footer>
+
+    <script src="assets/js/app.js"></script>
+</body>
+<script>
+    function cargarRecetas() {
+        fetch('get-recetas.php')  // Solo recetas NO aprobadas
+            .then(res => res.json())
+            .then(data => {
+                const recetasTable = document.getElementById('recetas-table');
+                recetasTable.innerHTML = `
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Imagen</th>
+                        <th>Acción</th>
+                    </tr>
+                `;
+                data.forEach(receta => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${receta.titulo}</td>
+                        <td>${receta.descripcion}</td>
+                        <td>${receta.categoria}</td>
+                        <td><img src="${receta.imagen}" alt="${receta.titulo}" width="100"></td>
+                        <td>
+                            <button onclick="aprobarReceta(${receta.id})">Aprobar</button>
+                            <button onclick="editarReceta(${receta.id})">Editar</button>
+                            <button onclick="eliminarReceta(${receta.id})">Eliminar</button>
+                        </td>
+                    `;
+                    recetasTable.appendChild(row);
+                });
+            })
+            .catch(err => console.error('Error cargando recetas:', err));
+    }
+
+    function cargarRecetasAprobadas() {
+        fetch('get-recetas-aprobadas.php') // Solo recetas aprobadas
+            .then(res => res.json())
+            .then(data => {
+                const table = document.getElementById('recetas-aprobadas-table');
+                table.innerHTML = `
+                    <tr>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Imagen</th>
+                        <th>Acciones</th>
+                    </tr>
+                `;
+                data.forEach(receta => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${receta.titulo}</td>
+                        <td>${receta.descripcion}</td>
+                        <td>${receta.categoria}</td>
+                        <td><img src="${receta.imagen}" alt="${receta.titulo}" width="100"></td>
+                        <td>
+                            <button onclick="editarReceta(${receta.id})">Editar</button>
+                            <button onclick="eliminarReceta(${receta.id})">Eliminar</button>
+                        </td>
+                    `;
+                    table.appendChild(row);
+                });
+            })
+            .catch(err => console.error('Error cargando recetas aprobadas:', err));
+    }
+
+    function aprobarReceta(id) {
+        fetch('aprobar-receta.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Receta aprobada');
+                    cargarRecetas();
+                    cargarRecetasAprobadas();
+                } else {
+                    alert('Hubo un problema al aprobar la receta');
+                }
+            })
+            .catch(err => console.error('Error al aprobar la receta:', err));
+    }
+
+    function cargarEstadisticas() {
+        fetch('get-estadisticas.php')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('estadisticas-container');
+                container.innerHTML = `
+                    <p>Total de usuarios: <strong>${data.usuarios}</strong></p>
+                    <p>Total de recetas: <strong>${data.recetas}</strong></p>
+                    <p>Recetas aprobadas: <strong>${data.aprobadas}</strong></p>
+                    <p>Recetas pendientes: <strong>${data.pendientes}</strong></p>
+                `;
+            })
+            .catch(err => console.error('Error al cargar estadísticas:', err));
+    }
+
+    function eliminarReceta(id) {
+    if (!confirm('¿Estás seguro de eliminar esta receta?')) return;
+
+    fetch('eliminar-receta.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                alert('Receta eliminada');
+                cargarRecetas();
+                cargarRecetasAprobadas();
+            } else {
+                alert('Error al eliminar la receta');
+            }
+        })
+        .catch(err => console.error('Error eliminando receta:', err));
+}
+function editarReceta(id) {
+  window.location.href = `editar-receta.html?id=${id}`;
+}
+
+
+    // Ejecutar funciones cuando cargue el DOM
+    document.addEventListener('DOMContentLoaded', function () {
+        cargarRecetas(); // pendientes
+        cargarRecetasAprobadas(); // aprobadas
+        cargarEstadisticas();
+    });
+</script>
+
+</html>

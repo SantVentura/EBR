@@ -1,0 +1,27 @@
+footer {
+    position: fixed; /* Hace que el footer se quede fijo en la parte inferior */
+    bottom: 0; /* Coloca el footer al final de la página */
+    left: 0; /* Alinea el footer con el borde izquierdo */
+    width: 100%; /* Asegura que el footer ocupe todo el ancho de la pantalla */
+    background-color: #f1f1f1; /* Fondo claro */
+    padding: 20px 20px; /* Espaciado dentro del footer */
+    text-align: center; /* Centra el texto */
+    color: #555; /* Color del texto */
+    margin-top: auto; /* No necesita margen superior, ya está al final */
+    z-index: 1000; /* Asegura que el footer esté encima de otros elementos */
+  }
+  
+  
+  footer .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo sutil */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  footer p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }

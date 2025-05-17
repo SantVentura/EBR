@@ -1,23 +1,25 @@
-/* Reset de márgenes y padding para evitar inconsistencias entre navegadores */
+/* Establecemos el body y html para que cubran toda la altura de la pantalla sin necesidad de scroll */
 * {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Asegura que padding y border no generen desbordamiento */
 }
 
-/* Estilo del fondo del cuerpo con un degradado ligero y una imagen de fondo */
-body {
-    background-image: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1)
-    ), url(""); /* Aquí debes agregar la URL de la imagen de fondo */
-    object-fit: cover; /* Asegura que la imagen de fondo mantenga sus proporciones */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Esto asegura que el contenido cubra el 100% del alto */
+    display: flex;
+    flex-direction: column;
 }
 
+/* Asegura que el contenido principal ocupe todo el espacio restante */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    background-color: #f4f4f4; /* Fondo suave */
+}
 /* Estilo del encabezado (header) */
 header {
-    width: 100vw; /* Ocupa el ancho completo de la ventana */
+    width: 100%; /* Ocupa el ancho completo de la ventana */
     height: 100px; /* Altura fija */
     background-color: white; /* Fondo blanco */
     z-index: 1; /* Asegura que el header esté por encima de otros elementos */
@@ -184,3 +186,164 @@ header {
         display: none;
     }
 }
+
+/* Sección de contacto */
+.contact-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título de la sección */
+.contact-section h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Descripción breve */
+.contact-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Detalles de contacto */
+.contact-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    flex-basis: 30%; /* Reduce el ancho de cada item */
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.contact-item h3 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-item p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Botones de contacto */
+.contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-btn {
+    padding: 15px 30px;
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+.whatsapp {
+    background-color: #25D366;
+}
+
+.whatsapp:hover {
+    background-color: #128C7E;
+    transform: translateY(-5px);
+}
+
+.instagram {
+    background-color: #E1306C;
+}
+
+.instagram:hover {
+    background-color: #C13584;
+    transform: translateY(-5px);
+}
+
+/* Ajustes solo para el contenedor "contact-section" en pantallas pequeñas */
+@media screen and (max-width: 720px) {
+    .contact-section {
+        padding: 15px; /* Menos padding para reducir el espacio interno */
+        margin: 10px;  /* Añadir un poco de margen para evitar que quede pegado */
+    }
+
+    .contact-section h1 {
+        font-size: 1.8rem; /* Reducir el tamaño del título */
+    }
+
+    .contact-section p {
+        font-size: 1rem; /* Reducir el tamaño de la descripción */
+    }
+
+    .contact-details {
+        display: block; /* Apilar los elementos en una sola columna */
+    }
+
+    .contact-item {
+        flex-basis: 100%; /* Hacer que los elementos ocupen todo el ancho */
+        text-align: center; /* Centrar el texto en dispositivos pequeños */
+        margin-bottom: 15px; /* Espacio entre los elementos */
+    }
+
+    .contact-item h3 {
+        font-size: 1.1rem; /* Reducir tamaño del encabezado */
+    }
+
+    .contact-item p {
+        font-size: 0.9rem; /* Reducir tamaño del párrafo */
+    }
+
+    /* Ajustar los botones de contacto */
+    .contact-social {
+        flex-direction: column; /* Apilar los botones verticalmente */
+        gap: 10px;
+    }
+
+    .social-btn {
+        font-size: 1.1rem; /* Reducir el tamaño de la fuente en los botones */
+        padding: 12px 25px; /* Ajustar el tamaño de los botones */
+    }
+}
+
+/* Estilos generales para el footer */
+footer {
+    position: fixed; /* Hace que el footer se quede fijo en la parte inferior */
+    bottom: 0; /* Coloca el footer al final de la página */
+    left: 0; /* Alinea el footer con el borde izquierdo */
+    width: 100%; /* Asegura que el footer ocupe todo el ancho de la pantalla */
+    background-color: #f1f1f1; /* Fondo claro */
+    padding: 20px 20px; /* Espaciado dentro del footer */
+    text-align: center; /* Centra el texto */
+    color: #555; /* Color del texto */
+    margin-top: auto; /* No necesita margen superior, ya está al final */
+    z-index: 1000; /* Asegura que el footer esté encima de otros elementos */
+}
+
+/* Ajustes para que el contenido no quede cubierto por el footer */
+
+
+  footer .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo sutil */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  footer p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }

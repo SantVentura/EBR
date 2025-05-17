@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/conocenos.css">
+</head>
+
+<body>
+  <header>
+    <section class="container">
+      <article class="logo">
+        <a href=""><img class="imglogo" src="assets/img/Sin título.png" alt="logo"></a>
+      </article>
+      <article class="menu">
+        <img src="assets/img/bar-de-hamburguesas.png" id="btn-menu" style="width: 33px; height: 33px;">
+        <div id="backmenu"></div>
+        <nav id="menu">
+          <ul>
+            <li><a href="Home.html" id="select">Inicio</a></li>
+            <li><a href="Conocenos.html">Conocenos</a></li>
+            <li><a href="Donaciones.html">Donaciones</a></li>
+            <li><a href="Contactanos.html">Contactanos</a></li>
+            <li>
+              <form id="search-container" action="/search" method="GET">
+                <input id="placeh" type="text" name="query" placeholder="Search...">
+                <button id="boton" type="submit">
+                  <img src="assets/img/buscar.png" alt="Search" style="width: 20px; height: 20px;">
+                </button>
+              </form>
+            </li>
+          </ul>
+        </nav>
+      </article>
+    </section>
+  </header>
+  <main class="about-section  ">
+    <section class="sobre-nosotros-container fade-in-section">
+      <h1>Conócenos</h1>
+      <p>
+        En <strong>El Blog de las Recetas</strong> creemos que la cocina es un lenguaje universal que une corazones y culturas.
+        Hemos creado este espacio para que cada persona, sin importar su experiencia, pueda descubrir nuevas recetas,
+        compartir las suyas y formar parte de una comunidad gastronómica vibrante.
+      </p>
+      <p>
+        Somos un equipo comprometido con la diversidad culinaria, ofreciendo un sitio accesible, limpio y enfocado en la comunidad.
+        Aquí no importa tu nivel de experiencia: ¡todos son bienvenidos!
+      </p>
+    </section>
+    
+    <section class="valores-section fade-in-section">
+      <h2>Nuestros Valores</h2>
+      <div class="valores-container">
+        <div class="valor-card">
+          <span class="icono">🍳</span>
+          <h4>Pasión</h4>
+          <p>Amamos cocinar, crear y compartir cada sabor.</p>
+        </div>
+        <div class="valor-card">
+          <span class="icono">🤝</span>
+          <h4>Comunidad</h4>
+          <p>Un espacio abierto, colaborativo y sin prejuicios.</p>
+        </div>
+        <div class="valor-card">
+          <span class="icono">🌱</span>
+          <h4>Inclusividad</h4>
+          <p>Recetas para todos: veganos, celíacos, curiosos.</p>
+        </div>
+        <div class="valor-card">
+          <span class="icono">🧠</span>
+          <h4>Aprendizaje</h4>
+          <p>Crecemos juntos compartiendo conocimiento y experiencias.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mision-vision  fade-in-section">
+      <div class="card" onclick="abrirModal('mision')">
+        <h3>Misión <span class="icon">🎯</span></h3>
+        <p>Promover la cultura gastronómica...</p>
+      </div>
+    
+      <div class="card" onclick="abrirModal('vision')">
+        <h3>Visión <span class="icon">🚀</span></h3>
+        <p>Ser una plataforma líder en recetas colaborativas...</p>
+      </div>
+    </section>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal" onclick="cerrarModal(event)">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModal(event)">×</span>
+        <img id="modal-img" src="" alt="Imagen" />
+        <h3 id="modal-title"></h3>
+        <p id="modal-description"></p>
+      </div>
+    </div>
+    
+      
+
+      <div class="card desplegable ">
+        <button onclick="toggleDetalle(this)">Ver más sobre nuestro propósito</button>
+        <div class="contenido-oculto">
+          <p>
+            En El Blog de las Recetas no solo cocinamos: cultivamos memorias, tradiciones e innovación. 
+            Queremos ser una fuente de inspiración diaria, donde cada receta lleva una historia, cada ingrediente un recuerdo, 
+            y cada usuario un nuevo comienzo en la cocina.
+          </p>
+        </div>
+      </div>
+      
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 El Blog de las Recetas. Todos los derechos reservados.</p>
+      <p>Diseñado con ♥ por Gabriel Ventura</p>
+    </div>
+  </footer>
+</body>
+<script>
+  const contenidoModal = {
+    mision: {
+      titulo: "Nuestra Misión",
+      descripcion: "Promover la cultura gastronómica compartiendo recetas accesibles, saludables y variadas para todos. Queremos crear una comunidad unida por la cocina, donde cada receta cuente una historia.",
+      imagen: "/assets/img/mision.jpg"
+    },
+    vision: {
+      titulo: "Nuestra Visión",
+      descripcion: "Ser la plataforma líder en recetas colaborativas, impulsando la diversidad culinaria y el aprendizaje gastronómico entre cocineros de todas las edades y niveles.",
+      imagen: "/assets/img/vision.jpg"
+    }
+  };
+
+  function abrirModal(tipo) {
+    const modal = document.getElementById('modal');
+    document.getElementById('modal-title').textContent = contenidoModal[tipo].titulo;
+    document.getElementById('modal-description').textContent = contenidoModal[tipo].descripcion;
+    document.getElementById('modal-img').src = contenidoModal[tipo].imagen;
+    modal.style.display = 'flex';
+  }
+
+  function cerrarModal(e) {
+    if (e.target.id === 'modal' || e.target.classList.contains('close')) {
+      document.getElementById('modal').style.display = 'none';
+    }
+  }
+</script>
+
+<script>
+  function toggleDetalle(btn) {
+    const contenido = btn.nextElementSibling;
+    if (contenido.style.display === "block") {
+      contenido.style.display = "none";
+      btn.textContent = "Ver más sobre nuestro propósito";
+    } else {
+      contenido.style.display = "block";
+      btn.textContent = "Ocultar información";
+    }
+  }
+</script>
+<script>
+  const faders = document.querySelectorAll('.fade-in-section');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  faders.forEach(fader => {
+    observer.observe(fader);
+  });
+</script>
+
+
+
+
+
+<script src="/assets/js/app.js"></script>
+
+</html>

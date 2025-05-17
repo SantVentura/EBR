@@ -1,0 +1,226 @@
+/* Que el body ocupe toda la altura y distribuya en columna */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Que el main crezca si es necesario */
+main {
+  flex: 1; /* Es igual a flex-grow: 1, pero más compacto */
+  display: flex;
+ 
+}
+
+/* Contenedor del contenido principal */
+.cont2 {
+  flex: 1; /* Esto permite que crezca con el main */
+  background-color: aqu;
+  padding: 20px; /* opcional */
+ 
+}
+  
+/* Footer siempre al final */
+footer {
+  position: fixed; /* Hace que el footer se quede fijo en la parte inferior */
+  bottom: 0; /* Coloca el footer al final de la página */
+  left: 0; /* Alinea el footer con el borde izquierdo */
+  width: 100%; /* Asegura que el footer ocupe todo el ancho de la pantalla */
+  background-color: #f1f1f1; /* Fondo claro */
+  padding: 20px 20px; /* Espaciado dentro del footer */
+  text-align: center; /* Centra el texto */
+  color: #555; /* Color del texto */
+  margin-top: auto; /* No necesita margen superior, ya está al final */
+  z-index: 1000; /* Asegura que el footer esté encima de otros elementos */
+}
+
+
+footer .footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo sutil */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+footer p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+.recetas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.receta {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.receta:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el mouse */
+  background-color: rgba(0, 0, 0, 0.1); /* Oscurecer ligeramente */
+}
+
+.receta img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.estrellas {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: gold;
+}
+
+.contenido h3 {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.descripcion {
+  font-size: 1em;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 8px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.receta:hover .descripcion {
+  opacity: 1;
+  visibility: visible;
+}
+
+.receta a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cont2 {
+  padding: 20px;
+  overflow-y: auto; /* Añadido para hacer scroll interno si es necesario */
+  max-height: 80vh;
+}
+.sidebar-recetas {
+  width: 220px;
+  background-color: #f8f8f8;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-recetas h2 {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.menu-recetas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-recetas li {
+  margin-bottom: 10px;
+}
+
+.menu-recetas a {
+  text-decoration: none;
+  color: #444;
+  transition: color 0.3s;
+}
+
+.menu-recetas a:hover {
+  color: #e67e22;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+details ul {
+  margin-top: 5px;
+  padding-left: 15px;
+}
+
+details ul li {
+  margin: 5px 0;
+}
+.sidebar-toggle {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  background-color: #e67e22;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+.sidebar-recetas {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  z-index: 1002;
+  transition: left 0.3s ease;
+}
+
+.sidebar-recetas.active {
+  left: 0;
+}
+
+.sidebar-recetas .close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  float: right;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}

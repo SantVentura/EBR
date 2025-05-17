@@ -1,0 +1,70 @@
+<h2>Gestión de Usuarios</h2>
+<table id="usuarios-table">
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acción</th>
+    </tr>
+    <!-- Los usuarios se cargarán con JS -->
+</table>
+
+<script>
+function cargarUsuarios() {
+    fetch('get-usuarios.php')
+        .then(res => res.json())
+        .then(data => {
+            const tabla = document.getElementById('usuarios-table');
+            tabla.innerHTML = `
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Acción</th>
+                </tr>
+            `;
+            data.forEach(usuario => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${usuario.id}</td>
+                    <td>${usuario.nombre}</td>
+                    <td>${usuario.email}</td>
+                    <td>${usuario.rol}</td>
+                    <td>
+                        <button onclick="eliminarUsuario(${usuario.id})">Eliminar</button>
+                        <button onclick="editarUsuario(${usuario.id})">Editar</button>
+                    </td>
+                `;
+                tabla.appendChild(row);
+            });
+        })
+        .catch(err => console.error('Error al cargar usuarios:', err));
+}
+
+function eliminarUsuario(id) {
+    if (!confirm('¿Eliminar este usuario?')) return;
+
+    fetch('eliminar-usuario.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert('Usuario eliminado');
+            cargarUsuarios();
+        } else {
+            alert('Error al eliminar');
+        }
+    });
+}
+
+function editarUsuario(id) {
+    window.location.href = `editar-usuario.html?id=${id}`;
+}
+
+document.addEventListener('DOMContentLoaded', cargarUsuarios);
+</script>

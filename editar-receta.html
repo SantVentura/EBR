@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Receta</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/editar-receta.css">
+</head>
+
+<body>
+
+    <div>
+        <a href="admin-dashboard.html" class="volver-btn">← Volver al Dashboard</a>
+        <h1>Editar Receta</h1>
+
+        <form id="form-editar-receta">
+            <input type="hidden" id="receta-id">
+
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" required></textarea>
+
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" required>
+                <option value="1">Postres</option>
+                <option value="2">Comida Rápida</option>
+                <option value="3">Vegana</option>
+                <option value="4">Internacional</option>
+                <option value="5">Bebidas</option>
+            </select>
+
+            <label for="imagen">URL de la imagen:</label>
+            <input type="file" id="imagen" accept="image/*">
+            <button type="submit">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        fetch(`get-receta.php?id=${id}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('receta-id').value = data.id;
+                document.getElementById('titulo').value = data.titulo;
+                document.getElementById('descripcion').value = data.descripcion;
+                document.getElementById('categoria').value = data.categoria_id;
+                document.getElementById('imagen').value = data.imagen;
+            });
+
+        document.getElementById('form-editar-receta').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const archivoImagen = document.getElementById('imagen').files[0];
+            let urlImagen = document.getElementById('imagen').value; // por si no se cambia imagen
+
+            if (archivoImagen) {
+                // Subir imagen primero
+                const formData = new FormData();
+                formData.append('imagen', archivoImagen);
+
+                const res = await fetch('upload-imagen.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    urlImagen = data.url;
+                } else {
+                    alert('Error al subir la imagen: ' + data.error);
+                    return;
+                }
+            }
+
+            // Ahora enviamos los datos para editar la receta
+            const receta = {
+                id: document.getElementById('receta-id').value,
+                titulo: document.getElementById('titulo').value,
+                descripcion: document.getElementById('descripcion').value,
+                categoria_id: parseInt(document.getElementById('categoria').value),
+                imagen: urlImagen
+            };
+
+            fetch('editar-receta.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(receta)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Receta actualizada');
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        alert('Error al actualizar la receta: ' + data.error);
+                    }
+                });
+        });
+
+
+    </script>
+</body>
+
+</html>

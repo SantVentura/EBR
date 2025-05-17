@@ -1,39 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/home.css">
 </head>
+
 <body>
     <header>
         <section class="container">
             <article class="logo">
-                <a href=""><img class="imglogo" src="/assets/img/Sin título.png" alt="logo"></a>
+                <a href=""><img class="imglogo" src="assets/img/Sin título.png" alt="logo"></a>
             </article>
             <article class="menu">
-                <img src="/assets/img/bar-de-hamburguesas.png"  id="btn-menu" style="width: 33px; height: 33px;">
+                <img src="assets/img/bar-de-hamburguesas.png" id="btn-menu" style="width: 33px; height: 33px;">
                 <div id="backmenu"></div>
                 <nav id="menu">
                     <ul>
-                       <li><a href="/Home.html" id="select">Inicio</a></li>
-                       <li><a href="">Conocenos</a></li>
-                       <li><a href="/Donaciones.html">Donaciones</a></li>
-                       <li><a href="">Contactanos</a></li>
-                       <li>
-                        <form id="search-container" action="/search" method="GET" >
-                            <input id="placeh" type="text" name="query" placeholder="Search...">
-                            <button id="boton" type="submit">
-                                <img src="/assets/img/buscar.png" alt="Search" style="width: 20px; height: 20px;">
-                            </button>
-                        </form>
-                    </li>
+                        <li><a href="Home.html" id="select">Inicio</a></li>
+                        <li><a href="Conocenos.html">Conocenos</a></li>
+                        <li><a href="Donaciones.html">Donaciones</a></li>
+                        <li><a href="Contactanos.html">Contactanos</a></li>
+                        <li>
+                            <form id="search-container" action="/search" method="GET">
+                                <input id="placeh" type="text" name="query" placeholder="Search...">
+                                <button id="boton" type="submit">
+                                    <img src="assets/img/buscar.png" alt="Search" style="width: 20px; height: 20px;">
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </nav>
             </article>
         </section>
     </header>
+    
+    <main>
+        <!-- Botón para abrir el sidebar -->
+        <button id="openSidebar" class="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar oculto -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+        <nav id="sidebar" class="sidebar-recetas">
+            <button id="closeSidebar" class="close-btn">✖</button>
+            <h2>Categorías</h2>
+            <ul class="menu-recetas">
+                <li>
+                    <details>
+                        <summary>Recetas para todos</summary>
+                        <ul>
+                            <li><a href="#">Vegetarianas</a></li>
+                            <li><a href="#">Bajas en calorías</a></li>
+                            <li><a href="#">Fáciles y rápidas</a></li>
+                        </ul>
+                    </details>
+                </li>
+                <li><a href="#">Recetas de la semana</a></li>
+                <li><a href="/Perfil.html">Mi perfil</a></li>
+            </ul>
+        </nav>
+
+
+
+        <div class="cont2">
+            <section class="recetas-container" id="recetas-container">
+
+               
+             
+
+
+                <!-- Más recetas se agregan aquí -->
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 El Blog de las Recetas. Todos los derechos reservados.</p>
+            <p>Diseñado con ♥ por Gabriel Ventura</p>
+        </div>
+    </footer>
+
 </body>
-<script src="/assets/js/app.js"></script>
+<script src="assets/js/buton-side.js"></script>
+<script src="assets/js/app.js"></script>
+
+<script>
+    // Cargar las recetas dinámicamente desde el backend
+    document.addEventListener("DOMContentLoaded", function () {
+    fetch('get-recetas-aprobadas.php')
+        .then(response => response.json())
+        .then(data => {
+            const recetasContainer = document.querySelector('.recetas-container');
+
+            data.forEach(receta => {
+                const recetaElement = document.createElement('article');
+                recetaElement.classList.add('receta');
+
+                // Si no hay valoración, se omite
+                const estrellas = receta.valoracion
+                    ? `<div class="estrellas">${'⭐'.repeat(receta.valoracion)}${'☆'.repeat(5 - receta.valoracion)}</div>`
+                    : '';
+
+                recetaElement.innerHTML = `
+                    <a href="receta${receta.id}.html">
+                        <img src="${receta.imagen}" alt="${receta.titulo}">
+                        <div class="contenido">
+                            <h3>${receta.titulo}</h3>
+                            ${estrellas}
+                        </div>
+                    </a>
+                    <div class="descripcion">
+                        ${receta.descripcion}
+                    </div>
+                `;
+
+                recetasContainer.appendChild(recetaElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error al cargar las recetas:', error);
+        });
+});
+    </script>
 </html>
